@@ -22,6 +22,7 @@ include_directories(
 
 set(OCLTEST_SRCS
   CMakeLists.txt
+  float.h
   main.cpp
   )
 
