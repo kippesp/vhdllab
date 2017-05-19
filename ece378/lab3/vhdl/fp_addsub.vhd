@@ -100,7 +100,7 @@ architecture behavior of fp_addsub is
 
     signal sg : std_logic;  -- sign bit of t1_op_t2_2c
 
-    signal t1_op_t2_sm : std_logic_vector(24 downto 0); -- t1 +/- t2 in 2C form
+    signal t1_op_t2_sm : std_logic_vector(25 downto 0); -- t1 +/- t2 in 2C form
 
     -- lzd operation
     signal dir : std_logic;
@@ -163,7 +163,7 @@ architecture behavior of fp_addsub is
         s_x_alignment_shifter : mybarrelShifter
             generic map (
                 N => 24,
-                SW => 1,
+                SW => 8,
                 mode => "LOGICAL")
             port map (
                 idata => s_x,
@@ -176,8 +176,8 @@ architecture behavior of fp_addsub is
             port map (
                 a => s_y,
                 b => s_x,
-                c => "00000000",
-                d => "00000000",
+                c => "000000000000000000000000",
+                d => "000000000000000000000000",
                 s(1) => '0',
                 s(0) => sm,
                 y_r => t1);
@@ -187,8 +187,8 @@ architecture behavior of fp_addsub is
             port map (
                 a => s_x,
                 b => s_y,
-                c => "00000000",
-                d => "00000000",
+                c => "000000000000000000000000",
+                d => "000000000000000000000000",
                 s(1) => '0',
                 s(0) => sm,
                 y_r => t2);
@@ -207,11 +207,11 @@ architecture behavior of fp_addsub is
 
         -- add/subtract operation on the 2C mantissa
         mantissa_adder : my_addsub
-            generic map (N => 25)
+            generic map (N => 26)
             port map (
                    addsub => op,
-                   x => t1_2c,
-                   y => t2_2c,
+                   x => t1_2c(24) & t1_2c,
+                   y => t2_2c(24) & t2_2c,
                    s => t1_op_t2_2c);
 
         sg <= t1_op_t2_2c(25); -- sign bit
@@ -227,7 +227,7 @@ architecture behavior of fp_addsub is
         lzd : myLZD
             generic map (
                 inputWidth => 26,
-                outputWidth => 26)
+                outputWidth => 8)
             port map (
                 input => t1_op_t2_sm,
                 sgn => dir,
@@ -236,10 +236,10 @@ architecture behavior of fp_addsub is
         magnitude_shifter : mybarrelShifter
             generic map (
                 N => 25,
-                SW => 1,
+                SW => 8,
                 mode => "LOGICAL")
             port map (
-                idata => t1_op_t2_sm,
+                idata => t1_op_t2_sm(24 downto 0),
                 dist => shift,
                 dir => dir,
                 odata => s);
