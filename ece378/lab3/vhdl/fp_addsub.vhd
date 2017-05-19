@@ -96,6 +96,9 @@ architecture behavior of fp_addsub is
     signal t1_2c : std_logic_vector(24 downto 0); -- t1 in 2C form
     signal t2_2c : std_logic_vector(24 downto 0); -- t2 in 2C form
 
+    signal t1_2c_se : std_logic_vector(25 downto 0); -- t1 in 2C form
+    signal t2_2c_se : std_logic_vector(25 downto 0); -- t2 in 2C form
+
     signal t1_op_t2_2c : std_logic_vector(25 downto 0); -- t1 +/- t2 in 2C form
 
     signal sg : std_logic;  -- sign bit of t1_op_t2_2c
@@ -205,13 +208,17 @@ architecture behavior of fp_addsub is
                 a  => t2,
                 r  => t2_2c);
 
+        -- sign extend t1_2c and t2_2c
+        t1_2c_se <= t1_2c(24) & t1_2c;
+        t2_2c_se <= t2_2c(24) & t2_2c;
+
         -- add/subtract operation on the 2C mantissa
         mantissa_adder : my_addsub
             generic map (N => 26)
             port map (
                    addsub => op,
-                   x => t1_2c(24) & t1_2c,
-                   y => t2_2c(24) & t2_2c,
+                   x => t1_2c_se,
+                   y => t2_2c_se,
                    s => t1_op_t2_2c);
 
         sg <= t1_op_t2_2c(25); -- sign bit
