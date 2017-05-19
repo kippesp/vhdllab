@@ -175,7 +175,7 @@ architecture behavior of fp_addsub is
             generic map (N => 24)
             port map (
                 a => s_y,
-                b => s_x,
+                b => aligned_s_x,
                 c => "000000000000000000000000",
                 d => "000000000000000000000000",
                 s(1) => '0',
@@ -185,7 +185,7 @@ architecture behavior of fp_addsub is
         s_min_mux_lbl : my_busmux4to1
             generic map (N => 24)
             port map (
-                a => s_x,
+                a => aligned_s_x,
                 b => s_y,
                 c => "000000000000000000000000",
                 d => "000000000000000000000000",

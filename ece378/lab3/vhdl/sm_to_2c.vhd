@@ -30,5 +30,6 @@ begin
         port map (
             addsub => sa,
             x => "0000000000000000000000000",
-            y => a_extended);
+            y => a_extended,
+            s => r);
 end;
