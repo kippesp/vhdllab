@@ -134,13 +134,25 @@ uint8_t lzd(uint32_t a, bs_dir_t& sg)
 
 int main()
 {
-  operation_t operation = ADD;
+  operation_t operation = SUBTRACT;
 
   //hwfloat_t A = 0x60a10000;
   //hwfloat_t B = 0xc2f97000;
 
-  hwfloat_t A = 0x40b00000u;
-  hwfloat_t B = 0xc2fa8000u;
+  //hwfloat_t A = 0x40b00000u;
+  //hwfloat_t B = 0xc2fa8000u;
+
+  //hwfloat_t A = 0x42fa8000u;
+  //hwfloat_t B = 0xc0e00000u;
+
+  //hwfloat_t A = 0x10dad000u;
+  //hwfloat_t B = 0x90fad000u;
+
+  //hwfloat_t A = 0x3de38866u;
+  //hwfloat_t B = 0xb300d959u;
+
+  hwfloat_t A = 0x60a10000u;
+  hwfloat_t B = 0x60a1f000u;
 
   //hwfloat_t A = 97982074617856.0f;
   //hwfloat_t B = -130.71875f;
