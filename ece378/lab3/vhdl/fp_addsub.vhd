@@ -233,10 +233,10 @@ architecture behavior of fp_addsub is
 
         lzd : myLZD
             generic map (
-                inputWidth => 26,
+                inputWidth => 25,
                 outputWidth => 8)
             port map (
-                input => t1_op_t2_sm,
+                input => t1_op_t2_sm(24 downto 0),
                 sgn => dir,
                 output => shift);
 
