@@ -134,16 +134,19 @@ uint8_t lzd(uint32_t a, bs_dir_t& sg)
 
 int main()
 {
-  operation_t operation = SUBTRACT;
+  operation_t operation = ADD;
 
-  hwfloat_t A = 0x60a10000u;
-  hwfloat_t B = 0x60a1f000u;
+  //hwfloat_t A = 0x60a10000;
+  //hwfloat_t B = 0xc2f97000;
+
+  hwfloat_t A = 0x40b00000u;
+  hwfloat_t B = 0xc2fa8000u;
 
   //hwfloat_t A = 97982074617856.0f;
   //hwfloat_t B = -130.71875f;
 
   hwfloat_t C;
-  if (operation == SUBTRACT)
+  if (operation == ADD)
     C.f = A.f + B.f;
   else
     C.f = A.f - B.f;
@@ -186,6 +189,8 @@ int main()
   // Choose the greater exponent
   uint32_t ep = mux2(sm, A.r.e, B.r.e);
 
+  printf("\n  (ep) 0x%02x\n", ep);
+
   // Of the greater exponent, choose its significand, f
   uint32_t fy = mux2(sm, A.r.p, B.r.p);
 
@@ -203,13 +208,20 @@ int main()
   // t1 <-- sx_normalized otherwise
   uint32_t t1 = mux2(sm, sy, sx_normalized);
 
+  printf("  (t1) 0x%06x\n", t1);
+
   // t2 <-- sx_normalized if A.r.e is larger
   // t2 <-- sy otherwise
   uint32_t t2 = mux2(sm, sx_normalized, sy);
 
+  printf("  (t2) 0x%06x\n", t2);
+
   // Convert t1 and t2 into 2s complement form
   int32_t t1_smTo2c = smTo2c(t1, A.r.s);
   int32_t t2_smTo2c = smTo2c(t2, B.r.s);
+
+  printf("  (t1_smTo2c) 0x%06x\n", t1_smTo2c);
+  printf("  (t2_smTo2c) 0x%06x\n", t2_smTo2c);
 
   hwfloat_t t1_oper_t2;
 
@@ -219,11 +231,15 @@ int main()
   else
     t1_oper_t2.i = t1_smTo2c - t2_smTo2c;
 
+  printf("  (t1_oper_t2) 0x%06x\n", t1_oper_t2.i);
+
   // Save the new sign bit
   uint8_t sg = t1_oper_t2.r.s;
 
   // Convert to magnitude representation
   uint32_t t1_oper_t2_uAbs = abs(t1_oper_t2.i);
+
+  printf("  (t1_oper_t2_uAbs) 0x%06x\n", t1_oper_t2_uAbs);
 
   // Identify number of leading zeros plus implicit 1
   bs_dir_t dir;
