@@ -46,6 +46,26 @@ begin
     op <= '0';
     wait for 10ns;
 
+    a <= x"42fa8000";
+    b <= x"c0e00000";
+    op <= '0';
+    wait for 10ns;
+
+    a <= x"10dad000";
+    b <= x"90fad000";
+    op <= '1';
+    wait for 10ns;
+
+    a <= x"3de38866";
+    b <= x"b300d959";
+    op <= '1';
+    wait for 10ns;
+
+    a <= x"60a10000";
+    b <= x"60a1f000";
+    op <= '1';
+    wait for 10ns;
+
     wait;
   end process;
 
