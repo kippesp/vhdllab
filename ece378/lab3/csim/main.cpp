@@ -137,7 +137,7 @@ int main()
   operation_t operation = SUBTRACT;
 
   hwfloat_t A = 0x60a10000u;
-  hwfloat_t B = 0x60a1f000u;
+  hwfloat_t B = 0xc2f97000u;
 
   //hwfloat_t A = 97982074617856.0f;
   //hwfloat_t B = -130.71875f;
