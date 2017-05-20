@@ -224,12 +224,13 @@ architecture behavior of fp_addsub is
         sg <= t1_op_t2_2c(25); -- sign bit
 
         -- convert mantissa_adder 26-bit operation from 2C to 25-bit magnitude
-        u_abs_lbl : my_uabs_diff
+        u_abs_lbl : my_addsub
             generic map (N => 26)
             port map (
-                A => t1_op_t2_2c,
-                B => "00000000000000000000000000",
-                r => t1_op_t2_sm);
+                addsub => t1_op_t2_2c(25),
+                x => "00000000000000000000000000",
+                y => t1_op_t2_2c,
+                s => t1_op_t2_sm);
 
         lzd : myLZD
             generic map (
