@@ -30,41 +30,41 @@ begin
 
   stimulus: process
   begin
-  
+
     a <= x"00000000";
     b <= x"00000000";
     op <= '0';
-    wait for 10ns;
+    wait for 10us;
 
     a <= "01100000101000010000000000000000";
     b <= "11000010111110010111000000000000";
     op <= '0';
-    wait for 10ns;
+    wait for 10us;
 
     a <= x"40b00000";
     b <= x"c2fa8000";
     op <= '0';
-    wait for 10ns;
+    wait for 10us;
 
     a <= x"42fa8000";
     b <= x"c0e00000";
     op <= '0';
-    wait for 10ns;
+    wait for 10us;
 
     a <= x"10dad000";
     b <= x"90fad000";
     op <= '1';
-    wait for 10ns;
+    wait for 10us;
 
     a <= x"3de38866";
     b <= x"b300d959";
     op <= '1';
-    wait for 10ns;
+    wait for 10us;
 
     a <= x"60a10000";
     b <= x"60a1f000";
     op <= '1';
-    wait for 10ns;
+    wait for 10us;
 
     wait;
   end process;
